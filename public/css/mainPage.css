@@ -1,0 +1,25 @@
+  body {
+    background-image: url("/images/background.png");
+    text-align: center;
+    color: white;
+  }
+
+img {
+  height: 200px;
+  width: 200px;
+  border-radius: 100%;
+}
+
+h1 {
+  visibility: hidden;
+  padding-top: 50px;
+}
+
+.row {
+  margin-top: 50px;
+}
+
+.img1, .img2 {
+  position: relative;
+  visibility: hidden;
+}

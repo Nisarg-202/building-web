@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Building website</title>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+
+  <style>
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+  <!-- Custom styles for this template -->
+  <link href="/css/login.css" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/2f07377952.js" crossorigin="anonymous"></script>
+
+
+</head>
+
+<body class="text-center">
+
+  <%=heading%>
+
+  <form class="form-signin" action="/login" method="post">
+    <!-- <i class="fas fa-4x fa-home"></i> -->
+    <img class="logo" src="/images/logo.png" alt="">
+    <h1 class="h3 mb-3 font-weight-normal">Login</h1>
+    <input type="email" title="Enter Email Address" id="inputEmail" name="username" class="last first form-control transparent-input" placeholder="Email address" autocomplete="off" required autofocus>
+    <input type="password" title="Enter Password" id="inputPassword" name="password" class="last second form-control transparent-input" placeholder="Password" autocomplete="off" required>
+    <a class="forgotpassword" style="color: white;" href="/forgotpassword">Forgot Password</a>
+    <button class="btn transparent btn-lg btn-block btn-primary" type="submit">Login</button>
+    <p style="color: white;">New User? <a style="color: white;" href="/register">Sign Up</a> </p>
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(
+      function() {
+        $(".last").bind(
+          "click",
+          function() {
+            $(this).css("color", "white");
+          }
+        );
+      }
+    )
+  </script>
+</body>
+
+</html>

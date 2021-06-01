@@ -1,0 +1,75 @@
+body {
+  background-image: url("/images/background.png");
+  text-align: center;
+  color: white;
+}
+
+i {
+  color: white;
+}
+
+.item {
+  color: white;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+}
+
+.item:hover {
+  color: #95e1d3;
+}
+
+.title {
+  color: white;
+  text-align: center;
+  margin-top: 60px;
+}
+
+.form {
+  width: 400px;
+  margin: auto;
+  margin-top: 30px;
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white;
+}
+
+input.form::placeholder {
+  color: white;
+}
+
+select {
+  margin-top: 10px;
+}
+
+button {
+  margin-top: 20px;
+}
+
+h1 {
+  padding-bottom: 100px;
+  position: relative;
+  visibility: hidden;
+}
+
+.custom-select {
+  width: 250px;
+  margin-left: 0px;
+}
+
+.row {
+  position: relative;
+  visibility: hidden;
+}
+
+.navbar {
+  position: relative;
+  visibility: hidden;
+  bottom: 30px;
+}
+
+select.transparent-input {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white;
+}

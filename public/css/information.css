@@ -1,0 +1,57 @@
+body {
+  background-image: url("/images/background1.png");
+  color: white;
+}
+
+i {
+  color: white;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+}
+
+.navbar {
+    bottom: 30px;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+  margin: 10px 20px;
+}
+
+.img1 {
+  margin-left: 100px;
+  margin-top: 25px;
+}
+
+a:hover {
+  color: #aacdbe;
+}
+
+.container {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 40px;
+}
+
+h3, h4, h5, h6, a{
+  margin-bottom: 10px;
+  color: white;
+}
+
+.error {
+  text-align: center;
+  margin-top: 100px;
+}
+
+.error1 {
+  text-align: center;
+  margin-left: 600px;
+}
+
+i {
+  padding-right: 15px;
+}

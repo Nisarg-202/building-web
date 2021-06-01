@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/information.css">
+  <script src="https://kit.fontawesome.com/2f07377952.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg">
+    <!-- <a class="navbar-brand" href="/"><i class="fas fa-2x fa-home"></i></a> -->
+      <a class="navbar-brand" href="/"> <img class="logo" src="/images/logo.png" alt=""> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="item nav-link" href="/frontPage">Back</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <h1 class="error">Sorry ! Not Found Any Result</h1>
+  <i class="error1 fas fa-7x fa-search"></i>
+
+  <% var count = 0; %>
+
+    <% for(var i=0;i<data.length;i++) { %>
+  <%  if(data[i].property1city === search) { %>
+    <% count++ %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3><i class="fas fa-file-signature"></i><%=data[i].name%></h3>
+          <a href="tel:<%=data[i].phone%>"><h5><i class="fas fa-phone"></i><%=data[i].phone%></h5></a>
+          <a href="mailto:<%=data[i].username%>"><h5><i class="fas fa-envelope-open-text"></i><%=data[i].username%></h5></a>
+          <a href="/images/<%=data[i].profileImage%>"><img src="/images/<%=data[i].profileImage%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-6">
+        <h3><%=data[i].property1name%></h3>
+        <h3><%=data[i].property1bhk%> BHK</h3>
+        <h5><%=data[i].property1address%></h5>
+        <h6><%=data[i].property1city%></h6>
+        <h6><%=data[i].property1state%></h6>
+      <%  if(data[i].property1pdf) { %>
+          <a href="/images/<%=data[i].property1pdf%>"><i class="pdflink far fa-5x fa-file-pdf"></i></a>
+      <%  } %>
+
+      </div>
+    </div>
+    <div class="img1 row">
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property1image1%>"><img src="/images/<%=data[i].property1image1%>" alt=""></a>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property1image2%>"><img src="/images/<%=data[i].property1image2%>" alt=""></a>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property1image3%>"><img src="/images/<%=data[i].property1image3%>" alt=""></a>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property1image4%>"><img src="/images/<%=data[i].property1image4%>" alt=""></a>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property1image5%>"><img src="/images/<%=data[i].property1image5%>" alt=""></a>
+
+      </div>
+    </div>
+  </div>
+  <%  } %>
+  <%  } %>
+
+  <% for(var i=0;i<data.length;i++) { %>
+  <%  if(data[i].property2city === search) { %>
+      <% count++ %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3><i class="fas fa-file-signature"></i><%=data[i].name%></h3>
+        <a href="tel:<%=data[i].phone%>"><h5><i class="fas fa-phone"></i><%=data[i].phone%></h5></a>
+        <a href="mailto:<%=data[i].username%>"><h5><i class="fas fa-envelope-open-text"></i><%=data[i].username%></h5></a>
+          <a href="/images/<%=data[i].profileImage%>"><img src="/images/<%=data[i].profileImage%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-6">
+        <h3><%=data[i].property2name%></h3>
+        <h3><%=data[i].property2bhk%> BHK</h3>
+        <h5><%=data[i].property2address%></h5>
+        <h6><%=data[i].property2city%></h6>
+        <h6><%=data[i].property2state%></h6>
+        <% if(data[i].property2pdf) { %>
+          <a href="/images/<%=data[i].property2pdf%>"><i class="pdflink far fa-5x fa-file-pdf"></i></a>
+        <% } %>
+
+      </div>
+    </div>
+    <div class="img1 row">
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property2image1%>"><img src="/images/<%=data[i].property2image1%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property2image2%>"><img src="/images/<%=data[i].property2image2%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property2image3%>"><img src="/images/<%=data[i].property2image3%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property2image4%>"><img src="/images/<%=data[i].property2image4%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property2image5%>"><img src="/images/<%=data[i].property2image5%>" alt=""></a>
+
+      </div>
+    </div>
+  </div>
+  <%  } %>
+  <%  } %>
+
+  <% for(var i=0;i<data.length;i++) { %>
+  <%  if(data[i].property3city === search) { %>
+      <% count++ %>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6">
+        <h3><i class="fas fa-file-signature"></i><%=data[i].name%></h3>
+        <a href="tel:<%=data[i].phone%>"><h5><i class="fas fa-phone"></i><%=data[i].phone%></h5></a>
+        <a href="mailto:<%=data[i].username%>"><h5><i class="fas fa-envelope-open-text"></i><%=data[i].username%></h5></a>
+            <a href="/images/<%=data[i].profileImage%>"><img src="/images/<%=data[i].profileImage%>" alt=""></a>
+      </div>
+      <div class="col-lg-6">
+        <h3><%=data[i].property3name%></h3>
+        <h3><%=data[i].property3bhk%> BHK</h3>
+        <h5><%=data[i].property3address%></h5>
+        <h6><%=data[i].property3city%></h6>
+        <h6><%=data[i].property3state%></h6>
+        <% if(data[i].property3pdf) { %>
+            <a href="/images/<%=data[i].property3pdf%>"><i class="pdflink far fa-5x fa-file-pdf"></i></a>
+      <%  } %>
+
+      </div>
+    </div>
+    <div class="img1 row">
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property3image1%>"><img src="/images/<%=data[i].property3image1%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property3image2%>"><img src="/images/<%=data[i].property3image2%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property3image3%>"><img src="/images/<%=data[i].property3image3%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property3image4%>"><img src="/images/<%=data[i].property3image4%>" alt=""></a>
+
+      </div>
+      <div class="col-lg-2.5">
+        <a href="/images/<%=data[i].property3image5%>"><img src="/images/<%=data[i].property3image5%>" alt=""></a>
+
+      </div>
+    </div>
+  </div>
+  <%  } %>
+  <%  } %>
+
+
+
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+  if("<%=count%>" != 0) {
+      $(".error").remove();
+        $(".error1").remove();
+  }
+  </script>
+
+</body>
+
+</html>

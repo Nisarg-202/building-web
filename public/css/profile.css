@@ -1,0 +1,103 @@
+body {
+  text-align: center;
+  background-image: url("/images/background1.png");
+  color: white;
+}
+
+h1 {
+  margin-top: 15px;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+}
+
+.navbar {
+  bottom: 30px;
+}
+
+.nav-item {
+  margin: 0px 10px;
+}
+
+.nav-link {
+  color: white;
+}
+
+.booklet {
+  margin-bottom: 20px;
+}
+
+.form-control {
+  margin-top: 20px;
+  width: 650px;
+}
+
+.btn {
+  margin-top: 40px;
+}
+
+.img {
+  height: 200px;
+  width: 200px;
+  margin-top: 20px;
+}
+
+.img1 {
+  height: 200px;
+  width: 200px;
+}
+
+.file {
+  margin-top: 30px;
+  margin-left: 230px;
+  width: 350px;
+}
+
+.row {
+  margin-top: 70px;
+}
+
+.custom-select {
+  margin-top: 20px;
+  width: 650px;
+}
+
+.form1 {
+  width: 200px;
+  margin: 20px 100px;
+}
+
+.head {
+  margin-top: 50px;
+}
+
+i {
+  color: white;
+}
+
+input.transparent-input {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white;
+  color: white;
+}
+
+select.transparent-input {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white;
+}
+
+textarea.transparent-input {
+  background-color: rgba(0, 0, 0, 0) !important;
+  border-color: white;
+  color: white;
+}
+
+.transparent-input::placeholder {
+  color: white;
+}
+
+input.transparent-input::placeholder {
+  color: white;
+}

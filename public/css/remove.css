@@ -1,0 +1,38 @@
+body {
+  text-align: center;
+  color: white;
+    background-image: url("/images/background.png");
+}
+
+.far {
+  margin-top: 50px;
+}
+
+.nav-item {
+  margin: 0px 10px;
+}
+
+.logo {
+  height: 100px;
+  width: 100px;
+}
+
+.navbar {
+  bottom: 30px;
+}
+
+i {
+  color: white;
+}
+
+.nav-link {
+  color: white;
+}
+
+h1 {
+  margin-top: 20px;
+}
+
+button {
+  margin-top: 20px;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/profile.css">
+  <script src="https://kit.fontawesome.com/2f07377952.js" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+  <nav class="navbar navbar-expand-lg">
+    <!-- <a class="navbar-brand" href="#"><i class="fas fa-2x fa-home"></i></a> -->
+      <a class="navbar-brand" href="/"> <img class="logo" src="/images/logo.png" alt=""> </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/profile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/property1">Property 1</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/property2">Property 2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/property3">Property 3</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/remove">Remove</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <form class="form" action="/property1" method="post" enctype="multipart/form-data">
+
+    <h1>Property 1</h1>
+
+    <div class="row">
+      <div class="col-lg-6">
+        <h4 class="booklet">Upload Building Booklet</h4>
+
+        <a class="pdflink" href="<%=propertyPdf%>"><i class="pdflink far fa-5x fa-file-pdf"></i></a>
+        <input type="file" accept="application/pdf" title="Upload profile image" name="filename" class="file form-control-file">
+      </div>
+      <div class="col-lg-6">
+        <input type="text" required class="transparent-input form-control" name="propertyname" value="<%=propertyName%>" placeholder="Enter site name (required)">
+        <textarea name="propertyaddress" class="transparent-input form-control" placeholder="Enter site address (required)" rows="2" cols="80" required><%=propertyAddress%></textarea>
+          <input required class="transparent-input form-control" type="text" name="bhk" value="<%=bhk%>" placeholder="Enter BHK (required)">
+        <select class="transparent-input custom-select" name="state" required>
+          <option disabled>Select State (required)</option>
+          <% for(var i=0; i < State.length; i++) { %>
+          <option value="<%=State[i]%>"> <%=State[i]%> </option>
+          <%  } %>
+        </select>
+
+        <select class="transparent-input custom-select" name="city" required>
+          <option disabled>Select City (required)</option>
+          <% for(var i=0; i < City.length; i++) { %>
+          <option value="<%=City[i]%>"> <%=City[i]%> </option>
+          <%  } %>
+        </select>
+      </div>
+    </div>
+
+    <h4 class="head">Upload Images</h4>
+    <div class="second row">
+      <div class="col-lg-2.5">
+        <a href="<%=image1%>"><img class="img1" src="<%=image1%>" alt="images"></a>
+
+        <input accept="image/x-png" class="form1 form-control-file" type="file" name="image1" title="Upload Images" required>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="<%=image2%>"><img class="img1" src="<%=image2%>" alt="images"></a>
+
+  <input accept="image/x-png" class="form1 form-control-file" type="file" name="image2" title="Upload Images" required>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="<%=image3%>"><img class="img1" src="<%=image3%>" alt="images"></a>
+
+  <input accept="image/x-png" class="form1 form-control-file" type="file" name="image3" title="Upload Images" required>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="<%=image4%>"><img class="img1" src="<%=image4%>" alt="images"></a>
+
+  <input accept="image/x-png" class="form1 form-control-file" type="file" name="image4" title="Upload Images" required>
+      </div>
+      <div class="col-lg-2.5">
+        <a href="<%=image5%>"><img class="img1" src="<%=image5%>" alt="images"></a>
+
+  <input accept="image/x-png" class="form1 form-control-file" type="file" name="image5" title="Upload Images" required>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-lg btn-primary" name="button">Publish</button>
+  </form>
+  <form class="" action="/delete1" method="post">
+    <button type="submit" class="btn btn-lg btn-primary" name="button">Delete</button>
+  </form>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+
+    $(".form").submit(function(e) {
+      alert("successfully Uploaded");
+    });
+
+    if ("<%=data%>" == "") {
+      $(".pdflink").css("visibility", "hidden");
+    }
+
+    if ("<%=data1%>" == "") {
+      $(".img1").css("visibility", "hidden");
+    }
+  </script>
+</body>
+
+</html>
