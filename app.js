@@ -551,11 +551,12 @@ app.post('/register', function (req, res) {
             },
             req.body.password,
             function (err, user) {
+              console.log(user);
               if (err) {
                 console.log(err);
               } else {
                 let msg = {
-                  to: user.username,
+                  to: req.body.username,
                   from: 'nisargprajapati202@gmail.com',
                   subject: 'Thank You For Sign Up In Our Website',
                   html: '',
@@ -572,71 +573,73 @@ app.post('/register', function (req, res) {
                   ],
                 };
 
-                sg.send(msg).catch(function (err) {
-                  console.log(err);
-                });
-                console.log('save');
-                const info = new Info({
-                  username: user.username,
-                  profileImage: null,
-                  name: null,
-                  phone: user.phone,
-                  property1name: null,
-                  property1address: null,
-                  property1pdf: null,
-                  property1image1: null,
-                  property1image2: null,
-                  property1image3: null,
-                  property1image4: null,
-                  property1image5: null,
-                  property1bhk: null,
-                  property1state: null,
-                  property1city: null,
-                  property2name: null,
-                  property2address: null,
-                  property2pdf: null,
-                  property2image1: null,
-                  property2image2: null,
-                  property2image3: null,
-                  property2image4: null,
-                  property2image5: null,
-                  property2bhk: null,
-                  property2state: null,
-                  property2city: null,
-                  property3name: null,
-                  property3address: null,
-                  property3pdf: null,
-                  property3image1: null,
-                  property3image2: null,
-                  property3image3: null,
-                  property3image4: null,
-                  property3image5: null,
-                  property3bhk: null,
-                  property3state: null,
-                  property3city: null,
-                });
-                info.save(function (err) {
-                  if (err) {
+                sg.send(msg)
+                  .then(function () {
+                    const info = new Info({
+                      username: user.username,
+                      profileImage: null,
+                      name: null,
+                      phone: user.phone,
+                      property1name: null,
+                      property1address: null,
+                      property1pdf: null,
+                      property1image1: null,
+                      property1image2: null,
+                      property1image3: null,
+                      property1image4: null,
+                      property1image5: null,
+                      property1bhk: null,
+                      property1state: null,
+                      property1city: null,
+                      property2name: null,
+                      property2address: null,
+                      property2pdf: null,
+                      property2image1: null,
+                      property2image2: null,
+                      property2image3: null,
+                      property2image4: null,
+                      property2image5: null,
+                      property2bhk: null,
+                      property2state: null,
+                      property2city: null,
+                      property3name: null,
+                      property3address: null,
+                      property3pdf: null,
+                      property3image1: null,
+                      property3image2: null,
+                      property3image3: null,
+                      property3image4: null,
+                      property3image5: null,
+                      property3bhk: null,
+                      property3state: null,
+                      property3city: null,
+                    });
+                    info.save(function (err) {
+                      if (err) {
+                        console.log(err);
+                      } else {
+                        console.log('save');
+                      }
+                    });
+                    Person.deleteOne(
+                      {
+                        username: user.username,
+                      },
+                      function (err) {
+                        if (err) {
+                          console.log(err);
+                          res.redirect('/');
+                        } else {
+                          passport.authenticate('local')(req, res, function () {
+                            res.redirect('/profile');
+                          });
+                        }
+                      }
+                    );
+                  })
+                  .catch(function (err) {
                     console.log(err);
-                  } else {
-                    console.log('save');
-                  }
-                });
-                Person.deleteOne(
-                  {
-                    username: user.username,
-                  },
-                  function (err) {
-                    if (err) {
-                      console.log(err);
-                      res.redirect('/');
-                    } else {
-                      passport.authenticate('local')(req, res, function () {
-                        res.redirect('/profile');
-                      });
-                    }
-                  }
-                );
+                  });
               }
             }
           );
