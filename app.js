@@ -1,20 +1,20 @@
 //jshint esversion:6
-require('dotenv').config();
+require("dotenv").config();
 
-const express = require('express');
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
-const passport = require('passport');
-const nodemailer = require('nodemailer');
-const passportLocalMongoose = require('passport-local-mongoose');
-const session = require('express-session');
-const otpGenerator = require('otp-generator');
-const upload = require('express-fileupload');
-const fs = require('fs');
-const sg = require('@sendgrid/mail');
+const express = require("express");
+const bodyParser = require("body-parser");
+const mongoose = require("mongoose");
+const passport = require("passport");
+const nodemailer = require("nodemailer");
+const passportLocalMongoose = require("passport-local-mongoose");
+const session = require("express-session");
+const otpGenerator = require("otp-generator");
+const upload = require("express-fileupload");
+const fs = require("fs");
+const sg = require("@sendgrid/mail");
 sg.setApiKey(process.env.sendGridKey);
-const state = require(__dirname + '/js/state.js');
-const city = require(__dirname + '/js/city.js');
+const state = require(__dirname + "/js/state.js");
+const city = require(__dirname + "/js/city.js");
 
 const app = express();
 app.use(upload());
@@ -23,8 +23,8 @@ app.use(
     extended: true,
   })
 );
-app.use(express.static('public'));
-app.set('view engine', 'ejs');
+app.use(express.static("public"));
+app.set("view engine", "ejs");
 
 app.use(
   session({
@@ -99,26 +99,26 @@ const infoSchema = new mongoose.Schema({
 
 userSchema.plugin(passportLocalMongoose);
 
-const User = mongoose.model('User', userSchema);
-const Info = mongoose.model('Info', infoSchema);
-const Person = mongoose.model('Person', personSchema);
+const User = mongoose.model("User", userSchema);
+const Info = mongoose.model("Info", infoSchema);
+const Person = mongoose.model("Person", personSchema);
 
 passport.use(User.createStrategy());
 
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get('/remove', function (req, res) {
+app.get("/remove", function (req, res) {
   if (req.isAuthenticated()) {
-    res.render('remove');
+    res.render("remove");
   }
 });
 
-app.get('/instruction', function (req, res) {
-  res.render('instruction');
+app.get("/instruction", function (req, res) {
+  res.render("instruction");
 });
 
-app.get('/profile', function (req, res) {
+app.get("/profile", function (req, res) {
   if (req.isAuthenticated()) {
     Info.find(
       {
@@ -128,20 +128,20 @@ app.get('/profile', function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          res.render('profile', {
+          res.render("profile", {
             personName: found[0].name,
-            imageURL: '/images/' + found[0].profileImage,
+            imageURL: "/images/" + found[0].profileImage,
             data: found[0].profileImage,
           });
         }
       }
     );
   } else {
-    res.redirect('/register');
+    res.redirect("/register");
   }
 });
 
-app.get('/property1', function (req, res) {
+app.get("/property1", function (req, res) {
   if (req.isAuthenticated()) {
     Info.find(
       {
@@ -160,15 +160,15 @@ app.get('/property1', function (req, res) {
                 if (err) {
                   console.log(err);
                 } else {
-                  res.render('property1', {
+                  res.render("property1", {
                     propertyName: found[0].property1name,
                     propertyAddress: found[0].property1address,
-                    propertyPdf: '/images/' + found[0].property1pdf,
-                    image1: '/images/' + found[0].property1image1,
-                    image2: '/images/' + found[0].property1image2,
-                    image3: '/images/' + found[0].property1image3,
-                    image4: '/images/' + found[0].property1image4,
-                    image5: '/images/' + found[0].property1image5,
+                    propertyPdf: "/images/" + found[0].property1pdf,
+                    image1: "/images/" + found[0].property1image1,
+                    image2: "/images/" + found[0].property1image2,
+                    image3: "/images/" + found[0].property1image3,
+                    image4: "/images/" + found[0].property1image4,
+                    image5: "/images/" + found[0].property1image5,
                     bhk: found[0].property1bhk,
                     data1: found[0].property1image1,
                     data: found[0].property1pdf,
@@ -179,17 +179,17 @@ app.get('/property1', function (req, res) {
               }
             );
           } else {
-            res.redirect('/profile');
+            res.redirect("/profile");
           }
         }
       }
     );
   } else {
-    res.redirect('/register');
+    res.redirect("/register");
   }
 });
 
-app.get('/property2', function (req, res) {
+app.get("/property2", function (req, res) {
   if (req.isAuthenticated()) {
     Info.find(
       {
@@ -208,15 +208,15 @@ app.get('/property2', function (req, res) {
                 if (err) {
                   console.log(err);
                 } else {
-                  res.render('property2', {
+                  res.render("property2", {
                     propertyName: found[0].property2name,
                     propertyAddress: found[0].property2address,
-                    propertyPdf: '/images/' + found[0].property2pdf,
-                    image1: '/images/' + found[0].property2image1,
-                    image2: '/images/' + found[0].property2image2,
-                    image3: '/images/' + found[0].property2image3,
-                    image4: '/images/' + found[0].property2image4,
-                    image5: '/images/' + found[0].property2image5,
+                    propertyPdf: "/images/" + found[0].property2pdf,
+                    image1: "/images/" + found[0].property2image1,
+                    image2: "/images/" + found[0].property2image2,
+                    image3: "/images/" + found[0].property2image3,
+                    image4: "/images/" + found[0].property2image4,
+                    image5: "/images/" + found[0].property2image5,
                     bhk: found[0].property2bhk,
                     data1: found[0].property2image1,
                     data: found[0].property2pdf,
@@ -227,17 +227,17 @@ app.get('/property2', function (req, res) {
               }
             );
           } else {
-            res.redirect('/profile');
+            res.redirect("/profile");
           }
         }
       }
     );
   } else {
-    res.redirect('/register');
+    res.redirect("/register");
   }
 });
 
-app.get('/property3', function (req, res) {
+app.get("/property3", function (req, res) {
   if (req.isAuthenticated()) {
     Info.find(
       {
@@ -256,15 +256,15 @@ app.get('/property3', function (req, res) {
                 if (err) {
                   console.log(err);
                 } else {
-                  res.render('property3', {
+                  res.render("property3", {
                     propertyName: found[0].property3name,
                     propertyAddress: found[0].property3address,
-                    propertyPdf: '/images/' + found[0].property3pdf,
-                    image1: '/images/' + found[0].property3image1,
-                    image2: '/images/' + found[0].property3image2,
-                    image3: '/images/' + found[0].property3image3,
-                    image4: '/images/' + found[0].property3image4,
-                    image5: '/images/' + found[0].property3image5,
+                    propertyPdf: "/images/" + found[0].property3pdf,
+                    image1: "/images/" + found[0].property3image1,
+                    image2: "/images/" + found[0].property3image2,
+                    image3: "/images/" + found[0].property3image3,
+                    image4: "/images/" + found[0].property3image4,
+                    image5: "/images/" + found[0].property3image5,
                     bhk: found[0].property3bhk,
                     data1: found[0].property3image1,
                     data: found[0].property3pdf,
@@ -275,62 +275,62 @@ app.get('/property3', function (req, res) {
               }
             );
           } else {
-            res.redirect('/profile');
+            res.redirect("/profile");
           }
         }
       }
     );
   } else {
-    res.redirect('/register');
+    res.redirect("/register");
   }
 });
 
-app.get('/logout', function (req, res) {
+app.get("/logout", function (req, res) {
   req.logout();
-  res.redirect('/');
+  res.redirect("/");
 });
 
-app.get('/', function (req, res) {
-  res.render('mainPage', {
-    heading: '',
+app.get("/", function (req, res) {
+  res.render("mainPage", {
+    heading: "",
   });
 });
 
-app.get('/frontPage', function (req, res) {
-  res.render('frontPage', {
-    heading: '',
+app.get("/frontPage", function (req, res) {
+  res.render("frontPage", {
+    heading: "",
     State: state(),
     City: city(),
   });
 });
 
-app.get('/register', function (req, res) {
-  res.render('register');
+app.get("/register", function (req, res) {
+  res.render("register");
 });
 
-app.get('/login', function (req, res) {
+app.get("/login", function (req, res) {
   if (req.isAuthenticated()) {
-    res.redirect('/profile');
+    res.redirect("/profile");
   } else {
-    res.render('login', {
-      heading: '',
+    res.render("login", {
+      heading: "",
     });
   }
 });
 
-app.get('/forgotpassword', function (req, res) {
-  res.render('forgotpassword');
+app.get("/forgotpassword", function (req, res) {
+  res.render("forgotpassword");
 });
 
-app.get('/property1', function (req, res) {
+app.get("/property1", function (req, res) {
   if (req.isAuthenticated()) {
-    res.render('property1');
+    res.render("property1");
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/login', function (req, res) {
+app.post("/login", function (req, res) {
   const user = new User({
     username: req.body.username,
     password: req.body.password,
@@ -340,21 +340,21 @@ app.post('/login', function (req, res) {
     if (err) {
       console.log(err);
     } else {
-      passport.authenticate('local')(req, res, function () {
-        res.redirect('/profile');
+      passport.authenticate("local")(req, res, function () {
+        res.redirect("/profile");
       });
     }
   });
 });
 
-app.post('/forgotpassword', function (req, res) {
+app.post("/forgotpassword", function (req, res) {
   User.find(
     {
       username: req.body.username,
     },
     function (err, found) {
       if (err) {
-        res.redirect('/');
+        res.redirect("/");
       } else {
         if (found) {
           const otps = otpGenerator.generate(6, {
@@ -364,12 +364,12 @@ app.post('/forgotpassword', function (req, res) {
           });
           let msg = {
             to: found[0].username,
-            from: 'nisargprajapati202@gmail.com',
-            subject: 'House A Dream Forget Password Verification Mail',
+            from: "nisargprajapati202@gmail.com",
+            subject: "House A Dream Forget Password Verification Mail",
             html:
               "<h1 style='text-align: center; color: black;'>Forget Password.</h1><h3>Your otp <span style='color: blue;'>" +
               otps +
-              '</span> for Forget Password in House A Dream Website.</h3>',
+              "</span> for Forget Password in House A Dream Website.</h3>",
           };
 
           sg.send(msg)
@@ -383,7 +383,7 @@ app.post('/forgotpassword', function (req, res) {
                 if (err) {
                   console.log(err);
                 } else {
-                  res.render('enterotp', {
+                  res.render("enterotp", {
                     username: found[0].username,
                     phone: found[0].phone,
                   });
@@ -391,17 +391,17 @@ app.post('/forgotpassword', function (req, res) {
               });
             })
             .catch(function (err) {
-              res.redirect('/');
+              res.redirect("/");
             });
         } else {
-          res.redirect('/');
+          res.redirect("/");
         }
       }
     }
   );
 });
 
-app.post('/enterotp', function (req, res) {
+app.post("/enterotp", function (req, res) {
   Person.find(
     {
       username: req.body.username,
@@ -412,7 +412,7 @@ app.post('/enterotp', function (req, res) {
       } else {
         const length = found.length;
         if (req.body.otp == found[length - 1].otp) {
-          res.render('enterpassword', {
+          res.render("enterpassword", {
             username: req.body.username,
             phone: req.body.phone,
           });
@@ -425,7 +425,7 @@ app.post('/enterotp', function (req, res) {
               if (err) {
                 console.log(err);
               } else {
-                res.redirect('/register');
+                res.redirect("/register");
               }
             }
           );
@@ -435,7 +435,7 @@ app.post('/enterotp', function (req, res) {
   );
 });
 
-app.post('/enterpassword', function (req, res) {
+app.post("/enterpassword", function (req, res) {
   if (req.body.password == req.body.repassword) {
     User.deleteOne(
       {
@@ -463,8 +463,8 @@ app.post('/enterpassword', function (req, res) {
                     if (err) {
                       console.log(err);
                     } else {
-                      res.render('mainPage', {
-                        heading: 'password successfully changed',
+                      res.render("mainPage", {
+                        heading: "password successfully changed",
                         State: state(),
                         City: city(),
                       });
@@ -486,14 +486,14 @@ app.post('/enterpassword', function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          res.redirect('/register');
+          res.redirect("/register");
         }
       }
     );
   }
 });
 
-app.post('/emailverification', function (req, res) {
+app.post("/emailverification", function (req, res) {
   const otps = otpGenerator.generate(6, {
     upperCase: false,
     specialChars: false,
@@ -502,12 +502,12 @@ app.post('/emailverification', function (req, res) {
 
   let msg = {
     to: req.body.username,
-    from: 'nisargprajapati202@gmail.com',
-    subject: 'House A Dream Verification Mail',
+    from: "nisargprajapati202@gmail.com",
+    subject: "House A Dream Verification Mail",
     html:
       "<h1 style='text-align: center; color: black;'>Welcome To Our Website.</h1><h3>Your otp <span style='color: blue;'>" +
       otps +
-      '</span> for Sign Up in House A Dream Website.</h3>',
+      "</span> for Sign Up in House A Dream Website.</h3>",
   };
 
   sg.send(msg)
@@ -520,7 +520,7 @@ app.post('/emailverification', function (req, res) {
         if (err) {
           console.log(err);
         } else {
-          res.render('emailverification', {
+          res.render("emailverification", {
             username: req.body.username,
             password: req.body.password,
             phone: req.body.phone,
@@ -533,7 +533,7 @@ app.post('/emailverification', function (req, res) {
     });
 });
 
-app.post('/register', function (req, res) {
+app.post("/register", function (req, res) {
   Person.find(
     {
       username: req.body.username,
@@ -557,18 +557,18 @@ app.post('/register', function (req, res) {
               } else {
                 let msg = {
                   to: req.body.username,
-                  from: 'nisargprajapati202@gmail.com',
-                  subject: 'Thank You For Sign Up In Our Website',
-                  html: '',
+                  from: "nisargprajapati202@gmail.com",
+                  subject: "Thank You For Sign Up In Our Website",
+                  html: "",
                   attachments: [
                     {
-                      filename: 'Poster.png',
-                      type: 'image/png',
+                      filename: "Poster.png",
+                      type: "image/png",
                       content: new Buffer.from(
-                        __dirname + '/public/images/poster.png'
-                      ).toString('base64'),
-                      contentId: 'myimageid',
-                      disposition: 'attachment',
+                        __dirname + "/public/images/poster.png"
+                      ).toString("base64"),
+                      contentId: "myimageid",
+                      disposition: "attachment",
                     },
                   ],
                 };
@@ -618,7 +618,7 @@ app.post('/register', function (req, res) {
                       if (err) {
                         console.log(err);
                       } else {
-                        console.log('save');
+                        console.log("save");
                       }
                     });
                     Person.deleteOne(
@@ -628,10 +628,10 @@ app.post('/register', function (req, res) {
                       function (err) {
                         if (err) {
                           console.log(err);
-                          res.redirect('/');
+                          res.redirect("/");
                         } else {
-                          passport.authenticate('local')(req, res, function () {
-                            res.redirect('/profile');
+                          passport.authenticate("local")(req, res, function () {
+                            res.redirect("/profile");
                           });
                         }
                       }
@@ -651,9 +651,9 @@ app.post('/register', function (req, res) {
             function (err) {
               if (err) {
                 console.log(err);
-                res.redirect('/');
+                res.redirect("/");
               } else {
-                res.redirect('/register');
+                res.redirect("/register");
               }
             }
           );
@@ -663,10 +663,10 @@ app.post('/register', function (req, res) {
   );
 });
 
-app.post('/profile', function (req, res) {
+app.post("/profile", function (req, res) {
   if (req.isAuthenticated()) {
     req.files.filename.mv(
-      'public/images/' + req.files.filename.md5 + '.png',
+      "public/images/" + req.files.filename.md5 + ".png",
       function (err) {
         if (err) {
           console.log(err);
@@ -676,17 +676,17 @@ app.post('/profile', function (req, res) {
               username: req.user.username,
             },
             {
-              profileImage: req.files.filename.md5 + '.png',
+              profileImage: req.files.filename.md5 + ".png",
               name: req.body.name,
             },
             function (err) {
               if (err) {
                 console.log(err);
               } else {
-                res.render('profile', {
-                  imageURL: '/images/' + req.files.filename.md5 + '.png',
+                res.render("profile", {
+                  imageURL: "/images/" + req.files.filename.md5 + ".png",
                   personName: req.body.name,
-                  data: req.files.filename.md5 + '.pdf',
+                  data: req.files.filename.md5 + ".pdf",
                 });
               }
             }
@@ -695,58 +695,58 @@ app.post('/profile', function (req, res) {
       }
     );
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/property1', function (req, res) {
+app.post("/property1", function (req, res) {
   if (req.isAuthenticated()) {
     if (req.files.filename) {
       req.files.filename.mv(
-        'public/images/' + req.files.filename.md5 + '.pdf',
+        "public/images/" + req.files.filename.md5 + ".pdf",
         function (err) {
           if (err) {
             console.log(err);
-            res.redirect('/profile');
+            res.redirect("/profile");
           } else {
             req.files.image1.mv(
-              'public/images/' + req.files.image1.md5 + '.png',
+              "public/images/" + req.files.image1.md5 + ".png",
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.redirect('/profile');
+                  res.redirect("/profile");
                 } else {
                   req.files.image2.mv(
-                    'public/images/' + req.files.image2.md5 + '.png',
+                    "public/images/" + req.files.image2.md5 + ".png",
                     function (err) {
                       if (err) {
                         console.log(err);
-                        res.redirect('/profile');
+                        res.redirect("/profile");
                       } else {
                         req.files.image3.mv(
-                          'public/images/' + req.files.image3.md5 + '.png',
+                          "public/images/" + req.files.image3.md5 + ".png",
                           function (err) {
                             if (err) {
                               console.log(err);
-                              res.redirect('/profile');
+                              res.redirect("/profile");
                             } else {
                               req.files.image4.mv(
-                                'public/images/' +
+                                "public/images/" +
                                   req.files.image4.md5 +
-                                  '.png',
+                                  ".png",
                                 function (err) {
                                   if (err) {
                                     console.log(errr);
-                                    res.redirect('/profile');
+                                    res.redirect("/profile");
                                   } else {
                                     req.files.image5.mv(
-                                      'public/images/' +
+                                      "public/images/" +
                                         req.files.image5.md5 +
-                                        '.png',
+                                        ".png",
                                       function (err) {
                                         if (err) {
                                           console.log(err);
-                                          res.redirect('/profile');
+                                          res.redirect("/profile");
                                         } else {
                                           Info.updateOne(
                                             {
@@ -754,21 +754,21 @@ app.post('/property1', function (req, res) {
                                             },
                                             {
                                               property1pdf:
-                                                req.files.filename.md5 + '.pdf',
+                                                req.files.filename.md5 + ".pdf",
                                               property1name:
                                                 req.body.propertyname,
                                               property1address:
                                                 req.body.propertyaddress,
                                               property1image1:
-                                                req.files.image1.md5 + '.png',
+                                                req.files.image1.md5 + ".png",
                                               property1image2:
-                                                req.files.image2.md5 + '.png',
+                                                req.files.image2.md5 + ".png",
                                               property1image3:
-                                                req.files.image3.md5 + '.png',
+                                                req.files.image3.md5 + ".png",
                                               property1image4:
-                                                req.files.image4.md5 + '.png',
+                                                req.files.image4.md5 + ".png",
                                               property1image5:
-                                                req.files.image5.md5 + '.png',
+                                                req.files.image5.md5 + ".png",
                                               property1bhk: req.body.bhk,
                                               property1state: req.body.state,
                                               property1city: req.body.city,
@@ -776,44 +776,44 @@ app.post('/property1', function (req, res) {
                                             function (err) {
                                               if (err) {
                                                 console.log(err);
-                                                res.redirect('/profile');
+                                                res.redirect("/profile");
                                               } else {
-                                                res.render('property1', {
+                                                res.render("property1", {
                                                   propertyPdf:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.filename.md5 +
-                                                    '.pdf',
+                                                    ".pdf",
                                                   propertyName:
                                                     req.body.propertyname,
                                                   propertyAddress:
                                                     req.body.propertyaddress,
                                                   image1:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image1.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image2:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image2.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image3:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image3.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image4:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image4.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image5:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image5.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   bhk: req.body.bhk,
                                                   data:
                                                     req.files.filename.md5 +
-                                                    '.pdf',
+                                                    ".pdf",
                                                   data1:
                                                     req.files.image1.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   State: state(),
                                                   City: city(),
                                                 });
@@ -840,41 +840,41 @@ app.post('/property1', function (req, res) {
       );
     } else {
       req.files.image1.mv(
-        'public/images/' + req.files.image1.md5 + '.png',
+        "public/images/" + req.files.image1.md5 + ".png",
         function (err) {
           if (err) {
             console.log(err);
-            res.redirect('/profile');
+            res.redirect("/profile");
           } else {
             req.files.image2.mv(
-              'public/images/' + req.files.image2.md5 + '.png',
+              "public/images/" + req.files.image2.md5 + ".png",
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.redirect('/profile');
+                  res.redirect("/profile");
                 } else {
                   req.files.image3.mv(
-                    'public/images/' + req.files.image3.md5 + '.png',
+                    "public/images/" + req.files.image3.md5 + ".png",
                     function (err) {
                       if (err) {
                         console.log(err);
-                        res.redirect('/profile');
+                        res.redirect("/profile");
                       } else {
                         req.files.image4.mv(
-                          'public/images/' + req.files.image4.md5 + '.png',
+                          "public/images/" + req.files.image4.md5 + ".png",
                           function (err) {
                             if (err) {
                               console.log(errr);
-                              res.redirect('/profile');
+                              res.redirect("/profile");
                             } else {
                               req.files.image5.mv(
-                                'public/images/' +
+                                "public/images/" +
                                   req.files.image5.md5 +
-                                  '.png',
+                                  ".png",
                                 function (err) {
                                   if (err) {
                                     console.log(err);
-                                    res.redirect('/profile');
+                                    res.redirect("/profile");
                                   } else {
                                     Info.updateOne(
                                       {
@@ -885,15 +885,15 @@ app.post('/property1', function (req, res) {
                                         property1address:
                                           req.body.propertyaddress,
                                         property1image1:
-                                          req.files.image1.md5 + '.png',
+                                          req.files.image1.md5 + ".png",
                                         property1image2:
-                                          req.files.image2.md5 + '.png',
+                                          req.files.image2.md5 + ".png",
                                         property1image3:
-                                          req.files.image3.md5 + '.png',
+                                          req.files.image3.md5 + ".png",
                                         property1image4:
-                                          req.files.image4.md5 + '.png',
+                                          req.files.image4.md5 + ".png",
                                         property1image5:
-                                          req.files.image5.md5 + '.png',
+                                          req.files.image5.md5 + ".png",
                                         property1bhk: req.body.bhk,
                                         property1state: req.body.state,
                                         property1city: req.body.city,
@@ -901,37 +901,37 @@ app.post('/property1', function (req, res) {
                                       function (err) {
                                         if (err) {
                                           console.log(err);
-                                          res.redirect('/profile');
+                                          res.redirect("/profile");
                                         } else {
-                                          res.render('property1', {
+                                          res.render("property1", {
                                             propertyPdf: null,
                                             propertyName: req.body.propertyname,
                                             propertyAddress:
                                               req.body.propertyaddress,
                                             image1:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image1.md5 +
-                                              '.png',
+                                              ".png",
                                             image2:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image2.md5 +
-                                              '.png',
+                                              ".png",
                                             image3:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image3.md5 +
-                                              '.png',
+                                              ".png",
                                             image4:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image4.md5 +
-                                              '.png',
+                                              ".png",
                                             image5:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image5.md5 +
-                                              '.png',
+                                              ".png",
                                             bhk: req.body.bhk,
                                             data: null,
                                             data1:
-                                              req.files.image1.md5 + '.png',
+                                              req.files.image1.md5 + ".png",
                                             State: state(),
                                             City: city(),
                                           });
@@ -955,58 +955,58 @@ app.post('/property1', function (req, res) {
       );
     }
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/property2', function (req, res) {
+app.post("/property2", function (req, res) {
   if (req.isAuthenticated()) {
     if (req.files.filename) {
       req.files.filename.mv(
-        'public/images/' + req.files.filename.md5 + '.pdf',
+        "public/images/" + req.files.filename.md5 + ".pdf",
         function (err) {
           if (err) {
             console.log(err);
-            res.redirect('/profile');
+            res.redirect("/profile");
           } else {
             req.files.image1.mv(
-              'public/images/' + req.files.image1.md5 + '.png',
+              "public/images/" + req.files.image1.md5 + ".png",
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.redirect('/profile');
+                  res.redirect("/profile");
                 } else {
                   req.files.image2.mv(
-                    'public/images/' + req.files.image2.md5 + '.png',
+                    "public/images/" + req.files.image2.md5 + ".png",
                     function (err) {
                       if (err) {
                         console.log(err);
-                        res.redirect('/profile');
+                        res.redirect("/profile");
                       } else {
                         req.files.image3.mv(
-                          'public/images/' + req.files.image3.md5 + '.png',
+                          "public/images/" + req.files.image3.md5 + ".png",
                           function (err) {
                             if (err) {
                               console.log(err);
-                              res.redirect('/profile');
+                              res.redirect("/profile");
                             } else {
                               req.files.image4.mv(
-                                'public/images/' +
+                                "public/images/" +
                                   req.files.image4.md5 +
-                                  '.png',
+                                  ".png",
                                 function (err) {
                                   if (err) {
                                     console.log(errr);
-                                    res.redirect('/profile');
+                                    res.redirect("/profile");
                                   } else {
                                     req.files.image5.mv(
-                                      'public/images/' +
+                                      "public/images/" +
                                         req.files.image5.md5 +
-                                        '.png',
+                                        ".png",
                                       function (err) {
                                         if (err) {
                                           console.log(err);
-                                          res.redirect('/profile');
+                                          res.redirect("/profile");
                                         } else {
                                           Info.updateOne(
                                             {
@@ -1014,21 +1014,21 @@ app.post('/property2', function (req, res) {
                                             },
                                             {
                                               property2pdf:
-                                                req.files.filename.md5 + '.pdf',
+                                                req.files.filename.md5 + ".pdf",
                                               property2name:
                                                 req.body.propertyname,
                                               property2address:
                                                 req.body.propertyaddress,
                                               property2image1:
-                                                req.files.image1.md5 + '.png',
+                                                req.files.image1.md5 + ".png",
                                               property2image2:
-                                                req.files.image2.md5 + '.png',
+                                                req.files.image2.md5 + ".png",
                                               property2image3:
-                                                req.files.image3.md5 + '.png',
+                                                req.files.image3.md5 + ".png",
                                               property2image4:
-                                                req.files.image4.md5 + '.png',
+                                                req.files.image4.md5 + ".png",
                                               property2image5:
-                                                req.files.image5.md5 + '.png',
+                                                req.files.image5.md5 + ".png",
                                               property2bhk: req.body.bhk,
                                               property2state: req.body.state,
                                               property2city: req.body.city,
@@ -1036,44 +1036,44 @@ app.post('/property2', function (req, res) {
                                             function (err) {
                                               if (err) {
                                                 console.log(err);
-                                                res.redirect('/profile');
+                                                res.redirect("/profile");
                                               } else {
-                                                res.render('property2', {
+                                                res.render("property2", {
                                                   propertyPdf:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.filename.md5 +
-                                                    '.pdf',
+                                                    ".pdf",
                                                   propertyName:
                                                     req.body.propertyname,
                                                   propertyAddress:
                                                     req.body.propertyaddress,
                                                   image1:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image1.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image2:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image2.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image3:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image3.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image4:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image4.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image5:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image5.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   bhk: req.body.bhk,
                                                   data:
                                                     req.files.filename.md5 +
-                                                    '.pdf',
+                                                    ".pdf",
                                                   data1:
                                                     req.files.image1.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   State: state(),
                                                   City: city(),
                                                 });
@@ -1100,41 +1100,41 @@ app.post('/property2', function (req, res) {
       );
     } else {
       req.files.image1.mv(
-        'public/images/' + req.files.image1.md5 + '.png',
+        "public/images/" + req.files.image1.md5 + ".png",
         function (err) {
           if (err) {
             console.log(err);
-            res.redirect('/profile');
+            res.redirect("/profile");
           } else {
             req.files.image2.mv(
-              'public/images/' + req.files.image2.md5 + '.png',
+              "public/images/" + req.files.image2.md5 + ".png",
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.redirect('/profile');
+                  res.redirect("/profile");
                 } else {
                   req.files.image3.mv(
-                    'public/images/' + req.files.image3.md5 + '.png',
+                    "public/images/" + req.files.image3.md5 + ".png",
                     function (err) {
                       if (err) {
                         console.log(err);
-                        res.redirect('/profile');
+                        res.redirect("/profile");
                       } else {
                         req.files.image4.mv(
-                          'public/images/' + req.files.image4.md5 + '.png',
+                          "public/images/" + req.files.image4.md5 + ".png",
                           function (err) {
                             if (err) {
                               console.log(errr);
-                              res.redirect('/profile');
+                              res.redirect("/profile");
                             } else {
                               req.files.image5.mv(
-                                'public/images/' +
+                                "public/images/" +
                                   req.files.image5.md5 +
-                                  '.png',
+                                  ".png",
                                 function (err) {
                                   if (err) {
                                     console.log(err);
-                                    res.redirect('/profile');
+                                    res.redirect("/profile");
                                   } else {
                                     Info.updateOne(
                                       {
@@ -1145,15 +1145,15 @@ app.post('/property2', function (req, res) {
                                         property2address:
                                           req.body.propertyaddress,
                                         property2image1:
-                                          req.files.image1.md5 + '.png',
+                                          req.files.image1.md5 + ".png",
                                         property2image2:
-                                          req.files.image2.md5 + '.png',
+                                          req.files.image2.md5 + ".png",
                                         property2image3:
-                                          req.files.image3.md5 + '.png',
+                                          req.files.image3.md5 + ".png",
                                         property2image4:
-                                          req.files.image4.md5 + '.png',
+                                          req.files.image4.md5 + ".png",
                                         property2image5:
-                                          req.files.image5.md5 + '.png',
+                                          req.files.image5.md5 + ".png",
                                         property2bhk: req.body.bhk,
                                         property2state: req.body.state,
                                         property2city: req.body.city,
@@ -1161,37 +1161,37 @@ app.post('/property2', function (req, res) {
                                       function (err) {
                                         if (err) {
                                           console.log(err);
-                                          res.redirect('/profile');
+                                          res.redirect("/profile");
                                         } else {
-                                          res.render('property2', {
+                                          res.render("property2", {
                                             propertyPdf: null,
                                             propertyName: req.body.propertyname,
                                             propertyAddress:
                                               req.body.propertyaddress,
                                             image1:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image1.md5 +
-                                              '.png',
+                                              ".png",
                                             image2:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image2.md5 +
-                                              '.png',
+                                              ".png",
                                             image3:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image3.md5 +
-                                              '.png',
+                                              ".png",
                                             image4:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image4.md5 +
-                                              '.png',
+                                              ".png",
                                             image5:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image5.md5 +
-                                              '.png',
+                                              ".png",
                                             bhk: req.body.bhk,
                                             data: null,
                                             data1:
-                                              req.files.image1.md5 + '.png',
+                                              req.files.image1.md5 + ".png",
                                             State: state(),
                                             City: city(),
                                           });
@@ -1215,58 +1215,58 @@ app.post('/property2', function (req, res) {
       );
     }
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/property3', function (req, res) {
+app.post("/property3", function (req, res) {
   if (req.isAuthenticated()) {
     if (req.files.filename) {
       req.files.filename.mv(
-        'public/images/' + req.files.filename.md5 + '.pdf',
+        "public/images/" + req.files.filename.md5 + ".pdf",
         function (err) {
           if (err) {
             console.log(err);
-            res.redirect('/profile');
+            res.redirect("/profile");
           } else {
             req.files.image1.mv(
-              'public/images/' + req.files.image1.md5 + '.png',
+              "public/images/" + req.files.image1.md5 + ".png",
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.redirect('/profile');
+                  res.redirect("/profile");
                 } else {
                   req.files.image2.mv(
-                    'public/images/' + req.files.image2.md5 + '.png',
+                    "public/images/" + req.files.image2.md5 + ".png",
                     function (err) {
                       if (err) {
                         console.log(err);
-                        res.redirect('/profile');
+                        res.redirect("/profile");
                       } else {
                         req.files.image3.mv(
-                          'public/images/' + req.files.image3.md5 + '.png',
+                          "public/images/" + req.files.image3.md5 + ".png",
                           function (err) {
                             if (err) {
                               console.log(err);
-                              res.redirect('/profile');
+                              res.redirect("/profile");
                             } else {
                               req.files.image4.mv(
-                                'public/images/' +
+                                "public/images/" +
                                   req.files.image4.md5 +
-                                  '.png',
+                                  ".png",
                                 function (err) {
                                   if (err) {
                                     console.log(errr);
-                                    res.redirect('/profile');
+                                    res.redirect("/profile");
                                   } else {
                                     req.files.image5.mv(
-                                      'public/images/' +
+                                      "public/images/" +
                                         req.files.image5.md5 +
-                                        '.png',
+                                        ".png",
                                       function (err) {
                                         if (err) {
                                           console.log(err);
-                                          res.redirect('/profile');
+                                          res.redirect("/profile");
                                         } else {
                                           Info.updateOne(
                                             {
@@ -1274,21 +1274,21 @@ app.post('/property3', function (req, res) {
                                             },
                                             {
                                               property3pdf:
-                                                req.files.filename.md5 + '.pdf',
+                                                req.files.filename.md5 + ".pdf",
                                               property3name:
                                                 req.body.propertyname,
                                               property3address:
                                                 req.body.propertyaddress,
                                               property3image1:
-                                                req.files.image1.md5 + '.png',
+                                                req.files.image1.md5 + ".png",
                                               property3image2:
-                                                req.files.image2.md5 + '.png',
+                                                req.files.image2.md5 + ".png",
                                               property3image3:
-                                                req.files.image3.md5 + '.png',
+                                                req.files.image3.md5 + ".png",
                                               property3image4:
-                                                req.files.image4.md5 + '.png',
+                                                req.files.image4.md5 + ".png",
                                               property3image5:
-                                                req.files.image5.md5 + '.png',
+                                                req.files.image5.md5 + ".png",
                                               property3bhk: req.body.bhk,
                                               property3state: req.body.state,
                                               property3city: req.body.city,
@@ -1296,44 +1296,44 @@ app.post('/property3', function (req, res) {
                                             function (err) {
                                               if (err) {
                                                 console.log(err);
-                                                res.redirect('/profile');
+                                                res.redirect("/profile");
                                               } else {
-                                                res.render('property3', {
+                                                res.render("property3", {
                                                   propertyPdf:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.filename.md5 +
-                                                    '.pdf',
+                                                    ".pdf",
                                                   propertyName:
                                                     req.body.propertyname,
                                                   propertyAddress:
                                                     req.body.propertyaddress,
                                                   image1:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image1.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image2:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image2.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image3:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image3.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image4:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image4.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   image5:
-                                                    '/images/' +
+                                                    "/images/" +
                                                     req.files.image5.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   bhk: req.body.bhk,
                                                   data:
                                                     req.files.filename.md5 +
-                                                    '.pdf',
+                                                    ".pdf",
                                                   data1:
                                                     req.files.image1.md5 +
-                                                    '.png',
+                                                    ".png",
                                                   State: state(),
                                                   City: city(),
                                                 });
@@ -1360,41 +1360,41 @@ app.post('/property3', function (req, res) {
       );
     } else {
       req.files.image1.mv(
-        'public/images/' + req.files.image1.md5 + '.png',
+        "public/images/" + req.files.image1.md5 + ".png",
         function (err) {
           if (err) {
             console.log(err);
-            res.redirect('/profile');
+            res.redirect("/profile");
           } else {
             req.files.image2.mv(
-              'public/images/' + req.files.image2.md5 + '.png',
+              "public/images/" + req.files.image2.md5 + ".png",
               function (err) {
                 if (err) {
                   console.log(err);
-                  res.redirect('/profile');
+                  res.redirect("/profile");
                 } else {
                   req.files.image3.mv(
-                    'public/images/' + req.files.image3.md5 + '.png',
+                    "public/images/" + req.files.image3.md5 + ".png",
                     function (err) {
                       if (err) {
                         console.log(err);
-                        res.redirect('/profile');
+                        res.redirect("/profile");
                       } else {
                         req.files.image4.mv(
-                          'public/images/' + req.files.image4.md5 + '.png',
+                          "public/images/" + req.files.image4.md5 + ".png",
                           function (err) {
                             if (err) {
                               console.log(errr);
-                              res.redirect('/profile');
+                              res.redirect("/profile");
                             } else {
                               req.files.image5.mv(
-                                'public/images/' +
+                                "public/images/" +
                                   req.files.image5.md5 +
-                                  '.png',
+                                  ".png",
                                 function (err) {
                                   if (err) {
                                     console.log(err);
-                                    res.redirect('/profile');
+                                    res.redirect("/profile");
                                   } else {
                                     Info.updateOne(
                                       {
@@ -1405,15 +1405,15 @@ app.post('/property3', function (req, res) {
                                         property3address:
                                           req.body.propertyaddress,
                                         property3image1:
-                                          req.files.image1.md5 + '.png',
+                                          req.files.image1.md5 + ".png",
                                         property3image2:
-                                          req.files.image2.md5 + '.png',
+                                          req.files.image2.md5 + ".png",
                                         property3image3:
-                                          req.files.image3.md5 + '.png',
+                                          req.files.image3.md5 + ".png",
                                         property3image4:
-                                          req.files.image4.md5 + '.png',
+                                          req.files.image4.md5 + ".png",
                                         property3image5:
-                                          req.files.image5.md5 + '.png',
+                                          req.files.image5.md5 + ".png",
                                         property3bhk: req.body.bhk,
                                         property3state: req.body.state,
                                         property3city: req.body.city,
@@ -1421,37 +1421,37 @@ app.post('/property3', function (req, res) {
                                       function (err) {
                                         if (err) {
                                           console.log(err);
-                                          res.redirect('/profile');
+                                          res.redirect("/profile");
                                         } else {
-                                          res.render('property3', {
+                                          res.render("property3", {
                                             propertyPdf: null,
                                             propertyName: req.body.propertyname,
                                             propertyAddress:
                                               req.body.propertyaddress,
                                             image1:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image1.md5 +
-                                              '.png',
+                                              ".png",
                                             image2:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image2.md5 +
-                                              '.png',
+                                              ".png",
                                             image3:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image3.md5 +
-                                              '.png',
+                                              ".png",
                                             image4:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image4.md5 +
-                                              '.png',
+                                              ".png",
                                             image5:
-                                              '/images/' +
+                                              "/images/" +
                                               req.files.image5.md5 +
-                                              '.png',
+                                              ".png",
                                             bhk: req.body.bhk,
                                             data: null,
                                             data1:
-                                              req.files.image1.md5 + '.png',
+                                              req.files.image1.md5 + ".png",
                                             State: state(),
                                             City: city(),
                                           });
@@ -1475,17 +1475,17 @@ app.post('/property3', function (req, res) {
       );
     }
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/searchbystate', function (req, res) {
+app.post("/searchbystate", function (req, res) {
   Info.find(function (err, found) {
     if (err) {
       console.log(err);
-      res.redirect('/');
+      res.redirect("/");
     } else {
-      res.render('stateinformation', {
+      res.render("stateinformation", {
         data: found,
         search: req.body.state,
       });
@@ -1493,13 +1493,13 @@ app.post('/searchbystate', function (req, res) {
   });
 });
 
-app.post('/searchbycity', function (req, res) {
+app.post("/searchbycity", function (req, res) {
   Info.find(function (err, found) {
     if (err) {
       console.log(err);
-      res.redirect('/');
+      res.redirect("/");
     } else {
-      res.render('cityinformation', {
+      res.render("cityinformation", {
         data: found,
         search: req.body.city,
       });
@@ -1507,7 +1507,7 @@ app.post('/searchbycity', function (req, res) {
   });
 });
 
-app.post('/remove', function (req, res) {
+app.post("/remove", function (req, res) {
   if (req.isAuthenticated()) {
     Info.deleteOne(
       {
@@ -1516,7 +1516,7 @@ app.post('/remove', function (req, res) {
       function (err) {
         if (err) {
           console.log(err);
-          res.redirect('/');
+          res.redirect("/");
         } else {
           User.deleteOne(
             {
@@ -1525,10 +1525,10 @@ app.post('/remove', function (req, res) {
             function (err) {
               if (err) {
                 console.log(err);
-                res.redirect('/');
+                res.redirect("/");
               } else {
-                res.render('mainPage', {
-                  heading: 'successfully deleted your account',
+                res.render("mainPage", {
+                  heading: "successfully deleted your account",
                   State: state(),
                   City: city(),
                 });
@@ -1539,11 +1539,11 @@ app.post('/remove', function (req, res) {
       }
     );
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/delete1', function (req, res) {
+app.post("/delete1", function (req, res) {
   if (req.isAuthenticated()) {
     Info.updateOne(
       {
@@ -1565,18 +1565,18 @@ app.post('/delete1', function (req, res) {
       function (err) {
         if (err) {
           console.log(err);
-          res.redirect('/');
+          res.redirect("/");
         } else {
-          res.redirect('/property1');
+          res.redirect("/property1");
         }
       }
     );
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/delete2', function (req, res) {
+app.post("/delete2", function (req, res) {
   if (req.isAuthenticated()) {
     Info.updateOne(
       {
@@ -1598,18 +1598,18 @@ app.post('/delete2', function (req, res) {
       function (err) {
         if (err) {
           console.log(err);
-          res.redirect('/');
+          res.redirect("/");
         } else {
-          res.redirect('/property2');
+          res.redirect("/property2");
         }
       }
     );
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
-app.post('/delete3', function (req, res) {
+app.post("/delete3", function (req, res) {
   if (req.isAuthenticated()) {
     Info.updateOne(
       {
@@ -1631,17 +1631,17 @@ app.post('/delete3', function (req, res) {
       function (err) {
         if (err) {
           console.log(err);
-          res.redirect('/');
+          res.redirect("/");
         } else {
-          res.redirect('/property3');
+          res.redirect("/property3");
         }
       }
     );
   } else {
-    res.redirect('/');
+    res.redirect("/");
   }
 });
 
 app.listen(process.env.PORT || 3000, function () {
-  console.log('server is running on port 3000.');
+  console.log("server is running on port 3000.");
 });
